@@ -8,11 +8,8 @@ plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.sonar)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.ktlint)
 }
-
-//detekt {
-//    config.setFrom("$rootDir/config/detekt.yml")
-//}
 
 allprojects {
     apply {

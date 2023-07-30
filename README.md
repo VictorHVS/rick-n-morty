@@ -35,6 +35,32 @@ FREE Rick and Morty API: https://rickandmortyapi.com/documentation
 ## Design 🎨
 Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/RNM-UNIVERSE-PROJECT?type=design&node-id=11%3A1833&mode=dev
 
+## Pre-Commit Hooks 🎣
+1. create a file named `pre-commit` in `.git/hooks/`
+2. add the following code to the file
+3. make the file executable using `chmod +x .git/hooks/pre-commit`
+4. commit your changes
+5. if any of the checks fail, the commit will be aborted
+6. if you want to commit anyway, use `git commit --no-verify`
+``` bash
+#!/usr/bin/env bash
+echo "Running detekt check..."
+OUTPUT="/tmp/detekt-$(date +%s)"
+./gradlew ktlintFormat
+./gradlew detekt > $OUTPUT
+EXIT_CODE=$?
+if [ $EXIT_CODE -ne 0 ]; then
+  cat $OUTPUT
+  rm $OUTPUT
+  echo "***********************************************"
+  echo "                 detekt failed                 "
+  echo " Please fix the above issues before committing "
+  echo "***********************************************"
+  exit $EXIT_CODE
+fi
+rm $OUTPUT
+```
+
 ## License 👮‍♂️
 ```
 Copyright 2022 The Android Open Source Project
