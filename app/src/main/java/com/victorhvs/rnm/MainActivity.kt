@@ -1,4 +1,4 @@
-package com.victorhvs.rick_n_morty
+package com.victorhvs.rnm
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.victorhvs.rick_n_morty.ui.theme.RicknmortyTheme
+import com.victorhvs.rnm.ui.theme.RicknmortyTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

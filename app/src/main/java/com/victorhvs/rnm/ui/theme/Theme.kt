@@ -1,4 +1,4 @@
-package com.victorhvs.rick_n_morty.ui.theme
+package com.victorhvs.rnm.ui.theme
 
 import android.app.Activity
 import android.os.Build
