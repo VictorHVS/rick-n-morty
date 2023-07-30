@@ -1,6 +1,6 @@
 name: Common Steps
 
-description: Common steps for RNM workflows
+description: Common steps
 
 runs:
   using: composite

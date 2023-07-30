@@ -1,4 +1,4 @@
-package com.victorhvs.rick_n_morty.ui.theme
+package com.victorhvs.rnm.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

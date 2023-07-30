@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.victorhvs.rick_n_morty"
+    namespace = "com.victorhvs.rnm"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.victorhvs.rick_n_morty"
+        applicationId = "com.victorhvs.rnm"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -62,7 +62,6 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
-    implementation(libs.gradle.detekt)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

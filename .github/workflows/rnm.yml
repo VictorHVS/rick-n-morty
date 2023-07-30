@@ -44,6 +44,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Common Steps
+        uses: ./.github/actions/common-steps
       - name: Assemble RNM
         run: ./gradlew assembleDebug --no-daemon --scan
       - name: Upload compose reports artifact
@@ -70,7 +72,7 @@ jobs:
       - name: Common Steps
         uses: ./.github/actions/common-steps
       - name: Run detekt
-        run: ./gradlew detektAll lintDebug --no-daemon
+        run: ./gradlew detekt ktlintCheck --no-daemon
       - name: Upload static reports artifact
         uses: actions/upload-artifact@v3
         with:
@@ -96,14 +98,14 @@ jobs:
       - name: Common Steps
         uses: ./.github/actions/common-steps
       - name: Run unit tests
-        run: ./gradlew unitTests koverXmlReport koverMergedReport koverMergedVerify --no-daemon --scan
+        run: ./gradlew test koverXmlReport --no-daemon --scan
       - name: Upload tests reports artifact (success)
         uses: actions/upload-artifact@v3
         if: success()
         with:
           name: tests-reports
-          path: build/reports/allTests
-          retention-days: 7
+          path: build/reports/tests
+          retention-days: 2
       - name: Upload tests reports artifact (failure)
         uses: actions/upload-artifact@v3
         if: failure()
