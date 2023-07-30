@@ -11,12 +11,38 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
-allprojects {
+subprojects {
     apply {
         plugin("io.gitlab.arturbosch.detekt")
+        plugin("org.jetbrains.kotlinx.kover")
     }
     detekt {
         config.setFrom("$rootDir/config/detekt.yml")
+    }
+    sonarqube {
+        properties {
+            property("sonar.sources", "src/main/java")
+            property("sonar.tests", "src/test/java")
+            property(
+                "sonar.coverage.jacoco.xmlReportPaths",
+                listOf(
+                    "$buildDir/reports/jacoco/testCodeCoverageReport/testCodeCoverageReport.xml",
+                    "$buildDir/reports/jacoco/testCodeCoverageReport/jacocoTestReport.xml",
+                    "$buildDir/reports/jacoco/test/jacocoTestReport.xml",
+                    "$buildDir/reports/kover/xml/coverage.xml",
+                    "$buildDir/reports/kover/report.xml",
+                )
+            )
+        }
+    }
+    koverReport {
+        defaults {
+            verify {
+                rule {
+                    minBound(85) // COVERED_LINES_PERCENTAGE
+                }
+            }
+        }
     }
 }
 
@@ -100,13 +126,23 @@ koverReport {
     }
 }
 
-sonar {
+sonarqube {
     properties {
         property("sonar.projectKey", "VictorHVS_rick-n-morty")
         property("sonar.organization", "victorhvs")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.pullrequest.provider", "GitHub")
         property("sonar.pullrequest.github.repository", "VictorHVS/rick-n-morty")
+        property("sonar.junit.reportsPath", "build/reports/")
+        property("sonar.java.coveragePlugin", "jacoco")
+        property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/kover/report.xml")
+        property("sonar.jacoco.reportPath", "build/jacoco/test.exec")
+        property("sonar.java.coveragePlugin", "jacoco")
+        property("sonar.language", "kotlin")
+        property("sonar.log.level", "TRACE")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.tags", "android")
+        property("sonar.verbose", true)
     }
 }
 

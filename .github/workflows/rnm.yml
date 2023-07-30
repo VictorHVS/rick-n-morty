@@ -71,20 +71,22 @@ jobs:
           fetch-depth: 0
       - name: Common Steps
         uses: ./.github/actions/common-steps
+
       - name: Run detekt
         run: ./gradlew detekt ktlintCheck --no-daemon
+
       - name: Upload static reports artifact
         uses: actions/upload-artifact@v3
         with:
           name: static-report
           path: |
             build/reports/detekt/detekt.xml
-            **/build/reports/lint-results-debug.xml
+            **/build/reports/ktlint/ktlintKotlinScriptCheck/ktlintKotlinScriptCheck.txt
           retention-days: 1
       - name: Analyze detekt report
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: build/reports/detekt/detekt.sarif
+          sarif_file: '**/build/reports/detekt/detekt.sarif'
           checkout_path: ${{ github.workspace }}
 
   unit-tests:
@@ -97,8 +99,10 @@ jobs:
           fetch-depth: 0
       - name: Common Steps
         uses: ./.github/actions/common-steps
+
       - name: Run unit tests
         run: ./gradlew test koverXmlReport --no-daemon --scan
+
       - name: Upload tests reports artifact (success)
         uses: actions/upload-artifact@v3
         if: success()
@@ -115,18 +119,20 @@ jobs:
             **/build/reports/tests/test
             **/build/reports/tests/testDebugUnitTest
           retention-days: 2
+
       - name: Upload coverage reports artifact
         uses: actions/upload-artifact@v3
         with:
           name: coverage-reports
-          path: '**/build/reports/kover/xml/report.xml'
+          path: '**/build/reports/kover/report.xml'
           retention-days: 1
+
       - name: Upload report to Codecov
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          files: build/reports/kover/merged/xml/report.xml
+          files: '**/build/reports/kover/report.xml'
           flags: unittests
           verbose: true
 
@@ -147,6 +153,7 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Download static report artifacts
         uses: actions/download-artifact@v3
         with:
