@@ -30,7 +30,7 @@ subprojects {
                     "$buildDir/reports/jacoco/testCodeCoverageReport/jacocoTestReport.xml",
                     "$buildDir/reports/jacoco/test/jacocoTestReport.xml",
                     "$buildDir/reports/kover/xml/coverage.xml",
-                    "$buildDir/reports/kover/report.xml",
+                    "$buildDir/reports/kover/report.xml"
                 )
             )
         }
