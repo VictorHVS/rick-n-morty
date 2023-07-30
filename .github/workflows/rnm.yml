@@ -108,7 +108,7 @@ jobs:
         if: success()
         with:
           name: tests-reports
-          path: build/reports/tests
+          path: app/build/reports/tests
           retention-days: 2
       - name: Upload tests reports artifact (failure)
         uses: actions/upload-artifact@v3
@@ -124,7 +124,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-reports
-          path: '**/build/reports/kover/report.xml'
+          path: '**/build/reports/kover/reportDebug.xml'
           retention-days: 1
 
       - name: Upload report to Codecov
@@ -132,7 +132,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          files: '**/build/reports/kover/report.xml'
+          files: '**/build/reports/kover/reportDebug.xml'
           flags: unittests
           verbose: true
 
