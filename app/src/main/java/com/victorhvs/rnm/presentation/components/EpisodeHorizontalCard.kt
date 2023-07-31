@@ -59,8 +59,8 @@ fun EpisodeHorizontalCard(
 }
 
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun EpisodeHorizontalCardPreview() {
     RicknmortyTheme {
