@@ -26,8 +26,8 @@ import com.victorhvs.rnm.presentation.theme.RicknmortyTheme
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SectionTitle(
-    @StringRes title: Int,
     modifier: Modifier = Modifier,
+    @StringRes title: Int,
     actionButton: @Composable () -> Unit = { },
 ) {
     Row(
