@@ -20,7 +20,7 @@ subprojects {
         config.setFrom("$rootDir/config/detekt.yml")
     }
     tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
-         include("**/src/main/java/**") // only analyze a sub package inside src/main/kotlin
+        include("**/src/main/java/**") // only analyze a sub package inside src/main/kotlin
         exclude("**/theme/**") // but exclude our legacy internal package
     }
 
