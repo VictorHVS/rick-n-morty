@@ -9,21 +9,22 @@ Study app that displays the characters and episodes of Rick and Morty using Jetp
   - [x] Unit Tests
   - [x] Sonar (https://sonarcloud.io/project/overview?id=VictorHVS_rick-n-morty)
   - [x] CodeCov (https://codecov.io/gh/VictorHVS/rick-n-morty)
+- [x] UX/UI using [Figma] (https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/RNM-UNIVERSE-PROJECT?type=design&node-id=54300%3A24571&mode=design&t=xgYm75a5iwueubPG-1), Material 3 and Generated images using Bing Image
 - [ ] Hilt Setup
 - [ ] Retrofit Setup
 - [ ] Room Setup
 - [ ] Paging3 + Remote Mediator
 - [ ] Home Screen with Character List
+  - [ ] Datasource
   - [ ] Repository
   - [ ] ViewModel
-  - [ ] UI using UDF Pattern ()
+  - [ ] UI using UDF Pattern (https://developer.android.com/jetpack/compose/architecture#udf)
 - [ ] Character Detail Screen
 - [ ] CD Pipeline using Github Actions
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - Jetpack Compose is Android’s modern toolkit for building native UI.
-- [Jetpack Accompanist](https://google.github.io/accompanist/) - Accompanist is a group of libraries that aim to supplement Jetpack Compose with features that are commonly required by developers but not yet available.
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) - Collection of libraries that help you design robust, testable, and maintainable apps.
 - [Jetpack Compose Navigation](https://developer.android.com/jetpack/compose/navigation) - Navigation refers to the interactions that allow users to navigate across, into, and back out from the different pieces of content within your app
 - [Material 3](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary.html) - Modular and customizable Material Design UI components for Android.
@@ -34,6 +35,17 @@ FREE Rick and Morty API: https://rickandmortyapi.com/documentation
 
 ## Design 🎨
 Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/RNM-UNIVERSE-PROJECT?type=design&node-id=11%3A1833&mode=dev
+
+### Screens (Dark and Light mode)
+<p align="center"> 
+   <img src="docs/char_list.png" alt="Character List & Search" /> 
+   Character List & Search
+</p>
+
+<p align="center"> 
+   <img src="docs/char_detail.png" alt="CHAR DETAIL" /> 
+   Character Detail
+</p>
 
 ## Pre-Commit Hooks 🎣
 1. create a file named `pre-commit` in `.git/hooks/`
@@ -46,7 +58,7 @@ Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/RNM-UNIVERSE
 #!/usr/bin/env bash
 echo "Running detekt check..."
 OUTPUT="/tmp/detekt-$(date +%s)"
-./gradlew ktlintFormat
+./gradlew ktlintFormat > $OUTPUT
 ./gradlew detekt > $OUTPUT
 EXIT_CODE=$?
 if [ $EXIT_CODE -ne 0 ]; then
