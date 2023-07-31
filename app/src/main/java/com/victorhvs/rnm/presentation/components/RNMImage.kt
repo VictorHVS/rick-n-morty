@@ -6,16 +6,20 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import com.victorhvs.rnm.R
 import com.victorhvs.rnm.presentation.theme.RicknmortyTheme
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun RNMImage(
     modifier: Modifier = Modifier,
@@ -24,6 +28,7 @@ fun RNMImage(
 ) {
     GlideImage(
         modifier = Modifier
+            .semantics { testTagsAsResourceId = true }
             .testTag("RNMImage")
             .fillMaxWidth()
             .then(modifier),
