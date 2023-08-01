@@ -19,6 +19,11 @@ subprojects {
     detekt {
         config.setFrom("$rootDir/config/detekt.yml")
     }
+    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        include("**/src/main/java/**") // only analyze a sub package inside src/main/kotlin
+        exclude("**/theme/**") // but exclude our legacy internal package
+    }
+
     sonarqube {
         properties {
             property("sonar.sources", "src/main/java")
@@ -54,6 +59,7 @@ sonarqube {
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.tags", "android")
         property("sonar.verbose", true)
+        property("sonar.exclusions", "**/theme/**, **/MainActivity.kt")
     }
 }
 
