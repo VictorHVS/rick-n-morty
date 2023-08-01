@@ -59,6 +59,8 @@ sonarqube {
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.tags", "android")
         property("sonar.verbose", true)
+        property("sonar.exclusions", "**/theme/**, **/MainActivity.kt")
+
     }
 }
 
