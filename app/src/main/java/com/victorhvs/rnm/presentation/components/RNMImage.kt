@@ -14,6 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import com.victorhvs.rnm.R
@@ -42,14 +44,25 @@ fun RNMImage(
         ),
         previewPlaceholder = R.drawable.ic_launcher_foreground,
         loading = {
-            Box(modifier = Modifier.matchParentSize()) {
+            Box(
+                modifier = Modifier
+                    .testTag("RNMImageLoading")
+                    .matchParentSize()
+            ) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
         },
         failure = {
-            Text(text = stringResource(id = R.string.image_load_error))
+            Text(
+                modifier = Modifier.testTag("RNMImageError"),
+                text = stringResource(id = R.string.image_load_error)
+            )
+        },
+        requestOptions = {
+            RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
         }
     )
 }

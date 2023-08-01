@@ -48,7 +48,7 @@ fun CharRounded(
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun CharRoundedPreview() {
-    RicknmortyTheme ExcludeFromGeneratedReport@{
+    RicknmortyTheme {
         CharRounded(text = "1")
     }
 }
