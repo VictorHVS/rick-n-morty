@@ -40,6 +40,16 @@ subprojects {
             )
         }
     }
+
+    koverReport {
+        filters {
+            excludes {
+                annotatedBy("*Preview*")
+                packages("com.victorhvs.rnm.presentation.theme")
+                classes("*MainActivity*")
+            }
+        }
+    }
 }
 
 sonarqube {
