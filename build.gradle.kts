@@ -60,7 +60,6 @@ sonarqube {
         property("sonar.tags", "android")
         property("sonar.verbose", true)
         property("sonar.exclusions", "**/theme/**, **/MainActivity.kt")
-
     }
 }
 
