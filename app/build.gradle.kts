@@ -2,6 +2,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -80,6 +83,8 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.landscapist.glide)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     testImplementation(libs.ui.test.junit4)
@@ -96,4 +101,8 @@ dependencies {
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+}
+
+kapt {
+    correctErrorTypes = true
 }
