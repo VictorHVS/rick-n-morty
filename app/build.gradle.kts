@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinx.serialization)
     kotlin("kapt")
 }
 
@@ -84,6 +85,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.landscapist.glide)
     implementation(libs.hilt.android)
+    implementation(libs.kotlinx.serialization.json)
     kapt(libs.hilt.compiler)
 
     testImplementation(libs.junit)
