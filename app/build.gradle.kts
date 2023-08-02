@@ -78,13 +78,15 @@ dependencies {
     implementation(libs.activity.compose)
 
     implementation(platform(libs.compose.bom))
+    implementation(libs.compose.paging3)
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.landscapist.glide)
-    implementation(libs.hilt.android)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.hilt.android)
+    implementation(libs.compose.navigationHilt)
     kapt(libs.hilt.compiler)
 
     implementation(libs.retrofit)

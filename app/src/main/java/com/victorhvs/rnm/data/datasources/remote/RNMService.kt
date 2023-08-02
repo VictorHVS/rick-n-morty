@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface RNMService {
 
-    @GET("search/movie")
+    @GET("character")
     suspend fun filterCharacters(
         @Query("name") query: String,
         @Query("page") page: Int = 1
