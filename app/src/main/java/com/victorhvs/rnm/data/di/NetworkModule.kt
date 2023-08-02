@@ -67,7 +67,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideStockRepository(
+    fun provideCharacterRepository(
         rnmService: RNMService,
         dispacher: DispatcherProvider
     ): CharacterRepository = CharacterRepositoryImpl(
