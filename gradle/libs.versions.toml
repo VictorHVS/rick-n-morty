@@ -22,6 +22,7 @@ retrofit-interceptor = "4.11.0"
 paging-compose = "1.0.0-alpha18"
 paging-version = "3.2.0"
 composeNavigationHilt = "1.0.0"
+accompanist = "0.28.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -33,6 +34,7 @@ activity-compose = { group = "androidx.activity", name = "activity-compose", ver
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 compose-paging3 = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-version" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }

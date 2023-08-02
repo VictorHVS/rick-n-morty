@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.landscapist.glide)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt.android)
+    implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.navigationHilt)
     kapt(libs.hilt.compiler)
 
