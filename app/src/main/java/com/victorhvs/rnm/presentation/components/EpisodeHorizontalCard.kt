@@ -3,6 +3,7 @@ package com.victorhvs.rnm.presentation.components
 import android.content.res.Configuration
 import androidx.compose.material3.Card
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,12 +30,13 @@ fun EpisodeHorizontalCard(
             .semantics { testTagsAsResourceId = true }
     ) {
         ListItem(
+            colors = ListItemDefaults.colors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
             headlineContent = {
                 Text(
                     text = name,
                     maxLines = 1,
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             },
             overlineContent = {

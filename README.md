@@ -10,7 +10,7 @@ Study app that displays the characters and episodes of Rick and Morty using Jetp
   - [x] Unit Tests
   - [x] Sonar (https://sonarcloud.io/project/overview?id=VictorHVS_rick-n-morty)
   - [x] CodeCov (https://codecov.io/gh/VictorHVS/rick-n-morty)
-- [x] UX/UI using [Figma] (https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/RNM-UNIVERSE-PROJECT?type=design&node-id=54300%3A24571&mode=design&t=xgYm75a5iwueubPG-1), Material 3 and Generated images using Bing Image
+- [x] UX/UI using [Figma](https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/%5BM3%5D-RNM-UNIVERSE-PROJECT?type=design&node-id=54313-25258&mode=design&t=VYaJlO1ELop5IFBA-4), Material 3 and Generated images using Bing Image
 - [x] Hilt Setup
 - [x] Retrofit Setup
 - [ ] Room Setup
