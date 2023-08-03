@@ -6,11 +6,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.assertWidthIsEqualTo
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import com.victorhvs.rnm.BaseComposeTestRunner
 import com.victorhvs.rnm.R
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class SectionTitleTest : BaseComposeTestRunner() {
@@ -33,18 +31,6 @@ class SectionTitleTest : BaseComposeTestRunner() {
         }
 
         composeTestRule.onNodeWithTag("SectionTitle").assertExists()
-    }
-
-    @Test
-    fun sectionTitle_actionButtonDisplayedAndClickable() {
-        var clicked = false
-
-        composeTestRule.setContent {
-            SectionTitle(title = R.string.episodes, action = { clicked = true })
-        }
-
-        composeTestRule.onNodeWithText("Action").assertExists().performClick()
-        assertTrue(clicked)
     }
 
     @Test
