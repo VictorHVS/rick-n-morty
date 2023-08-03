@@ -1,5 +1,3 @@
-
-
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
@@ -9,6 +7,7 @@ plugins {
     alias(libs.plugins.sonar)
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.hilt) apply false
 }
 
 subprojects {
@@ -38,6 +37,16 @@ subprojects {
                     "$buildDir/reports/kover/reportDebug.xml"
                 )
             )
+        }
+    }
+
+    koverReport {
+        filters {
+            excludes {
+                annotatedBy("*Preview*")
+                packages("com.victorhvs.rnm.presentation.theme")
+                classes("*MainActivity*")
+            }
         }
     }
 }

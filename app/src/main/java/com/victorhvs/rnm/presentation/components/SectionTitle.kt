@@ -47,12 +47,8 @@ fun SectionTitle(
     }
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    backgroundColor = 0xFF191C1A,
-    showBackground = true
-)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SectionTitlePreview() {
     RicknmortyTheme {
