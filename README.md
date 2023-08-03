@@ -1,3 +1,4 @@
+![img.png](docs/app.png)
 # rick-n-morty
 Study app that displays the characters and episodes of Rick and Morty using Jetpack Compose.
 
@@ -37,7 +38,6 @@ FREE Rick and Morty API: https://rickandmortyapi.com/documentation
 
 ## Design 🎨
 Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/%5BM3%5D-RNM-UNIVERSE-PROJECT?type=design&node-id=54313-25258&mode=design&t=VYaJlO1ELop5IFBA-4
-![img.png](docs/app.png)
 
 ### Screens (Dark and Light mode)
 <p align="center"> 

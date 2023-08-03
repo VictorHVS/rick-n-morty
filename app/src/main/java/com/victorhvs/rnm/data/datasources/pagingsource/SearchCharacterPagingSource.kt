@@ -18,21 +18,18 @@ class SearchCharacterPagingSource(
             try {
                 val apiResponse = rnmService.filterCharacters(query = query, page = params.key ?: 1)
                 val characters = apiResponse.results
-                if (characters.isNotEmpty()) {
-                    LoadResult.Page(
-                        data = characters,
-                        prevKey = getPage(apiResponse.info.prev),
-                        nextKey = getPage(apiResponse.info.next)
-                    )
-                } else {
-                    LoadResult.Page(
-                        data = emptyList(),
-                        prevKey = null,
-                        nextKey = null
-                    )
-                }
+                LoadResult.Page(
+                    data = characters,
+                    prevKey = getPage(apiResponse.info.prev),
+                    nextKey = getPage(apiResponse.info.next)
+                )
             } catch (e: Exception) {
-                LoadResult.Error(e)
+                e.printStackTrace()
+                LoadResult.Page(
+                    data = emptyList(),
+                    prevKey = null,
+                    nextKey = null
+                )
             }
         }
     }

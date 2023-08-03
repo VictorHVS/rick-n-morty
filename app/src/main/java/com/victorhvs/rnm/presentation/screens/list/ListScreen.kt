@@ -4,8 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -31,7 +32,7 @@ fun ListScreen(
 
     val pagingCharacters = viewModel.searchedCharacter.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
-    val listState = rememberLazyListState()
+    val gridState = rememberLazyGridState()
 
     LaunchedEffect(Unit) {
         viewModel.searchCharacter("")
@@ -48,7 +49,7 @@ fun ListScreen(
                 onSearchClicked = {
                     viewModel.searchCharacter(it)
                     coroutineScope.launch {
-                        listState.animateScrollToItem(0)
+                        gridState.animateScrollToItem(0)
                     }
                 },
             )
@@ -59,6 +60,7 @@ fun ListScreen(
                 .padding(paddingValues),
         ) {
             ListContent(
+                gridState = gridState,
                 characters = pagingCharacters,
             )
         }
@@ -68,9 +70,11 @@ fun ListScreen(
 @Composable
 fun ListContent(
     characters: LazyPagingItems<Character>,
+    gridState: LazyGridState = rememberLazyGridState(),
 ) {
 
     LazyVerticalGrid(
+        state = gridState,
         modifier = Modifier.padding(MaterialTheme.spacing.medium),
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
