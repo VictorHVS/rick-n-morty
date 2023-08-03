@@ -30,7 +30,7 @@ fun ListScreen(
     viewModel: ListViewModel = hiltViewModel()
 ) {
 
-    val pagingCharacters = viewModel.searchedCharacter.collectAsLazyPagingItems()
+    val pagingCharacters = viewModel.state.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
     val gridState = rememberLazyGridState()
 

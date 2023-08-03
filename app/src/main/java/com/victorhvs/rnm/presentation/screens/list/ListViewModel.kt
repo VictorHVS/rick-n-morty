@@ -9,7 +9,9 @@ import com.victorhvs.rnm.data.models.Character
 import com.victorhvs.rnm.data.repositories.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,10 +21,18 @@ class ListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _searchQuery = mutableStateOf("")
-    val searchQuery get() = _searchQuery
+    val searchQuery = _searchQuery
 
-    private val _searchedCharacter = MutableStateFlow<PagingData<Character>>(PagingData.empty())
-    val searchedCharacter get() = _searchedCharacter.asStateFlow()
+//    private val _searchedCharacter = MutableStateFlow<PagingData<Character>>(PagingData.empty())
+//    val searchedCharacter get() = _searchedCharacter.asStateFlow()
+
+    private val _state = MutableStateFlow<PagingData<Character>>(PagingData.empty())
+    val state: StateFlow<PagingData<Character>> =
+        _state.asStateFlow()
+
+    init {
+        searchCharacter(_searchQuery.value)
+    }
 
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
@@ -30,9 +40,10 @@ class ListViewModel @Inject constructor(
 
     fun searchCharacter(query: String) {
         viewModelScope.launch {
-            repository.searchCharacter(query = query).cachedIn(viewModelScope).collect {
-                _searchedCharacter.value = it
-                println("NEW REQUEST")
+            repository.searchCharacter(query = query).cachedIn(viewModelScope).collect { result ->
+                _state.update {
+                    result
+                }
             }
         }
     }
