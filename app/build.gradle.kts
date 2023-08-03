@@ -84,6 +84,7 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.paging3)
+    implementation(libs.compose.material.iconsExtended)
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)

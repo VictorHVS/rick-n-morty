@@ -39,11 +39,15 @@ fun ListScreen(
     }
 
     Scaffold(
-        modifier = modifier,
-        topBar = {
+        modifier = modifier
+    ) { paddingValues ->
+        Column(
+            modifier = modifier
+                .padding(paddingValues)
+                .padding(horizontal = MaterialTheme.spacing.medium),
+        ) {
             SearchWidget(
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium),
+                modifier = Modifier,
                 text = viewModel.searchQuery.value,
                 onTextChange = { viewModel.updateSearchQuery(it) },
                 onSearchClicked = {
@@ -53,13 +57,9 @@ fun ListScreen(
                     }
                 },
             )
-        },
-    ) { paddingValues ->
-        Column(
-            modifier = modifier
-                .padding(paddingValues),
-        ) {
+
             ListContent(
+                modifier = Modifier.padding(top = MaterialTheme.spacing.medium),
                 gridState = gridState,
                 characters = pagingCharacters,
             )
@@ -69,13 +69,14 @@ fun ListScreen(
 
 @Composable
 fun ListContent(
+    modifier: Modifier = Modifier,
     characters: LazyPagingItems<Character>,
     gridState: LazyGridState = rememberLazyGridState(),
 ) {
 
     LazyVerticalGrid(
         state = gridState,
-        modifier = Modifier.padding(MaterialTheme.spacing.medium),
+        modifier = modifier,
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)

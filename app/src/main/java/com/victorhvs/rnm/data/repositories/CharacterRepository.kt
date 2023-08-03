@@ -4,7 +4,9 @@ import androidx.paging.PagingData
 import com.victorhvs.rnm.data.models.Character
 import kotlinx.coroutines.flow.Flow
 
-fun interface CharacterRepository {
+interface CharacterRepository {
     fun searchCharacter(query: String): Flow<PagingData<Character>>
+
+    suspend fun getCharacter(id: Int): Character
 
 }

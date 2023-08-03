@@ -6,6 +6,8 @@ import com.victorhvs.rnm.core.DispatcherProviderImpl
 import com.victorhvs.rnm.data.datasources.remote.RNMService
 import com.victorhvs.rnm.data.repositories.CharacterRepository
 import com.victorhvs.rnm.data.repositories.CharacterRepositoryImpl
+import com.victorhvs.rnm.data.repositories.EpisodesRepository
+import com.victorhvs.rnm.data.repositories.EpisodesRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -71,6 +73,16 @@ object NetworkModule {
         rnmService: RNMService,
         dispacher: DispatcherProvider
     ): CharacterRepository = CharacterRepositoryImpl(
+        dispatcher = dispacher,
+        rnmService = rnmService,
+    )
+
+    @Provides
+    @Singleton
+    fun provideEpisodeRepository(
+        rnmService: RNMService,
+        dispacher: DispatcherProvider
+    ): EpisodesRepository = EpisodesRepositoryImpl(
         dispatcher = dispacher,
         rnmService = rnmService,
     )

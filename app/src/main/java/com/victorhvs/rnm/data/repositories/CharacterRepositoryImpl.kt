@@ -8,6 +8,7 @@ import com.victorhvs.rnm.data.datasources.pagingsource.SearchCharacterPagingSour
 import com.victorhvs.rnm.data.datasources.remote.RNMService
 import com.victorhvs.rnm.data.models.Character
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CharacterRepositoryImpl @Inject constructor(
@@ -26,6 +27,12 @@ class CharacterRepositoryImpl @Inject constructor(
                 )
             },
         ).flow
+    }
+
+    override suspend fun getCharacter(id: Int): Character {
+        return withContext(dispatcher.io()) {
+            rnmService.getCharacterById(id = id)
+        }
     }
 
     companion object {

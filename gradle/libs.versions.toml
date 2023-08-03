@@ -32,6 +32,7 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
 compose-paging3 = { module = "androidx.paging:paging-compose", version.ref = "paging-compose" }
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging-version" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
