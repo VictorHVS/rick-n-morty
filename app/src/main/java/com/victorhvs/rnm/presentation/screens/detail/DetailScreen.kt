@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Badge
-import androidx.compose.material.icons.outlined.FilterFrames
 import androidx.compose.material.icons.outlined.TheaterComedy
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,9 +23,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -45,6 +46,10 @@ fun DetailScreen(
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.state.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchCharacterAndEpisodes()
+    }
 
     Scaffold { paddingValues ->
         when (val state = uiState.value) {
@@ -179,7 +184,8 @@ fun CharInfoHeader(
                     },
                     icon = {
                         Icon(
-                            imageVector = Icons.Outlined.FilterFrames,
+                            modifier = Modifier.size(24.dp),
+                            painter = painterResource(id = R.drawable.frame_person_outlined),
                             contentDescription = character.status,
                         )
                     }

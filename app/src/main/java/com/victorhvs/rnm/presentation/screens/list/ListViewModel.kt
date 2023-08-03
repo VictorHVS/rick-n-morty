@@ -32,6 +32,7 @@ class ListViewModel @Inject constructor(
         viewModelScope.launch {
             repository.searchCharacter(query = query).cachedIn(viewModelScope).collect {
                 _searchedCharacter.value = it
+                println("NEW REQUEST")
             }
         }
     }
