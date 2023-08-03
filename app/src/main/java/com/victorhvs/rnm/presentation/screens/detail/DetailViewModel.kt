@@ -54,6 +54,7 @@ class DetailViewModel @Inject constructor(
         }
 
     private fun updateUiState(character: Character, episodes: List<Episode>) {
+        println("ENTROU NO UPDATE")
         _state.update { uiState ->
             if (uiState is UiState.Success) {
                 uiState.copy(

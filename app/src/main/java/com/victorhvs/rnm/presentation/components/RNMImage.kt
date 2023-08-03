@@ -41,16 +41,6 @@ fun RNMImage(
             alpha = 1f
         ),
         previewPlaceholder = R.drawable.app_icon,
-        loading = {
-            Image(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(ratio = 1f),
-                contentScale = ContentScale.Crop,
-                painter = painterResource(id = R.drawable.app_icon),
-                contentDescription = null
-            )
-        },
         failure = {
             Image(
                 modifier = Modifier

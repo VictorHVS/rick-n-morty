@@ -78,7 +78,6 @@ fun DetailContent(
     ) {
         item {
             CharInfoHeader(
-                modifier = Modifier.padding(top = MaterialTheme.spacing.small),
                 character = character,
                 onBackPressed = onBackPressed
             )
@@ -95,10 +94,11 @@ fun DetailContent(
                 )
             }
 
-            items(episodes) { episode ->
+            items(episodes.count()) { index ->
+                val episode = episodes[index]
                 EpisodeHorizontalCard(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
-                    position = episode.id,
+                    position = index.plus(1),
                     name = episode.name,
                     episode = episode.episode,
                     airDate = episode.airDate
@@ -145,6 +145,9 @@ fun CharInfoHeader(
             }
         }
         Text(
+            modifier = Modifier
+                .padding(horizontal = MaterialTheme.spacing.medium)
+                .fillMaxWidth(),
             text = character.name,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
