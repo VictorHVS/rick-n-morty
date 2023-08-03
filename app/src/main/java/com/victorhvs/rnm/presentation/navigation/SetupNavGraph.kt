@@ -35,9 +35,7 @@ fun SetupNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument(Screen.DETAILS_ARGUMENT_KEY) {
                 type = NavType.IntType
             })
-        ) { navBackStackEntry ->
-            val argument = navBackStackEntry.arguments?.getString("id")
-            println(argument)
+        ) {
             DetailScreen(onBackPressed = { navController.popBackStack() })
         }
     }
