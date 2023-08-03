@@ -7,6 +7,7 @@ import com.victorhvs.rnm.data.models.Character
 import com.victorhvs.rnm.data.models.Episode
 import com.victorhvs.rnm.data.repositories.CharacterRepository
 import com.victorhvs.rnm.data.repositories.EpisodesRepository
+import com.victorhvs.rnm.presentation.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,9 +30,8 @@ class DetailViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             runCatching {
-//                val charId = savedStateHandle.get<Int>("1")
-                val charId = 1
-                val charResult = charRepository.getCharacter(id = charId)
+                val charId = savedStateHandle.get<Int>(Screen.DETAILS_ARGUMENT_KEY)
+                val charResult = charRepository.getCharacter(id = charId!!)
                     .also { char ->
                         _state.update {
                             UiState.Success(

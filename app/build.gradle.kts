@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.navigationHilt)
+    implementation(libs.lifecycle.viewmodel)
     kapt(libs.hilt.compiler)
 
     implementation(libs.retrofit)

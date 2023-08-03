@@ -27,7 +27,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun ListScreen(
     modifier: Modifier = Modifier,
-    viewModel: ListViewModel = hiltViewModel(),
+    onCharacterClicked: (Int) -> Unit,
+    viewModel: ListViewModel = hiltViewModel()
 ) {
 
     val pagingCharacters = viewModel.searchedCharacter.collectAsLazyPagingItems()
@@ -62,6 +63,7 @@ fun ListScreen(
                 modifier = Modifier.padding(top = MaterialTheme.spacing.medium),
                 gridState = gridState,
                 characters = pagingCharacters,
+                onCardClicked = onCharacterClicked
             )
         }
     }
@@ -72,6 +74,7 @@ fun ListContent(
     modifier: Modifier = Modifier,
     characters: LazyPagingItems<Character>,
     gridState: LazyGridState = rememberLazyGridState(),
+    onCardClicked: (Int) -> Unit
 ) {
 
     LazyVerticalGrid(
@@ -85,6 +88,7 @@ fun ListContent(
             val character = characters[index]
             character?.let {
                 CharVerticalCard(
+                    onClick = { onCardClicked(character.id) },
                     imageUrl = character.image,
                     name = character.name,
                     species = character.species
