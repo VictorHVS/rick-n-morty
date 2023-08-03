@@ -24,11 +24,6 @@ class ListViewModel @Inject constructor(
     private val _searchedCharacter = MutableStateFlow<PagingData<Character>>(PagingData.empty())
     val searchedCharacter = _searchedCharacter.asStateFlow()
 
-    init {
-        _searchQuery.value = ""
-        searchCharacter(_searchQuery.value)
-    }
-
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
     }

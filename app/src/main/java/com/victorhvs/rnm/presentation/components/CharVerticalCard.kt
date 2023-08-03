@@ -48,13 +48,14 @@ fun CharVerticalCard(
             Text(
                 text = name,
                 maxLines = 1,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = species,
                 maxLines = 1,
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

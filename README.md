@@ -13,14 +13,14 @@ Study app that displays the characters and episodes of Rick and Morty using Jetp
 - [x] Hilt Setup
 - [x] Retrofit Setup
 - [ ] Room Setup
-- [ ] Paging3 + Remote Mediator
+- [x] Paging3 + Remote Mediator
 - [ ] Compose Navigation
 - [ ] Deep link
 - [x] Home Screen with Character List
-  - [ ] Datasource
-  - [ ] Repository
-  - [ ] ViewModel
-  - [ ] UI using UDF Pattern (https://developer.android.com/jetpack/compose/architecture#udf)
+  - [x] Datasource
+  - [x] Repository
+  - [x] ViewModel
+  - [x] UI using UDF Pattern (https://developer.android.com/jetpack/compose/architecture#udf)
 - [ ] Character Detail Screen
 - [ ] CD Pipeline using Github Actions
 
@@ -36,7 +36,8 @@ Study app that displays the characters and episodes of Rick and Morty using Jetp
 FREE Rick and Morty API: https://rickandmortyapi.com/documentation
 
 ## Design 🎨
-Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/RNM-UNIVERSE-PROJECT?type=design&node-id=11%3A1833&mode=dev
+Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/%5BM3%5D-RNM-UNIVERSE-PROJECT?type=design&node-id=54313-25258&mode=design&t=VYaJlO1ELop5IFBA-4
+![img.png](docs/app.png)
 
 ### Screens (Dark and Light mode)
 <p align="center"> 

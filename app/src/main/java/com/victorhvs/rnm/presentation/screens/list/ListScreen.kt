@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,10 +33,16 @@ fun ListScreen(
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
+    LaunchedEffect(Unit) {
+        viewModel.searchCharacter("")
+    }
+
     Scaffold(
-        modifier = modifier.padding(MaterialTheme.spacing.medium),
+        modifier = modifier,
         topBar = {
             SearchWidget(
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.medium),
                 text = viewModel.searchQuery.value,
                 onTextChange = { viewModel.updateSearchQuery(it) },
                 onSearchClicked = {
@@ -49,8 +56,7 @@ fun ListScreen(
     ) { paddingValues ->
         Column(
             modifier = modifier
-                .padding(paddingValues)
-                .padding(top = MaterialTheme.spacing.medium),
+                .padding(paddingValues),
         ) {
             ListContent(
                 characters = pagingCharacters,
@@ -65,6 +71,7 @@ fun ListContent(
 ) {
 
     LazyVerticalGrid(
+        modifier = Modifier.padding(MaterialTheme.spacing.medium),
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)

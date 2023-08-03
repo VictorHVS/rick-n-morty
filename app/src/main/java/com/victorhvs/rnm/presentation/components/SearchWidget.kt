@@ -8,6 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -51,7 +52,10 @@ fun SearchWidget(
         ),
         onValueChange = { onTextChange(it) },
         placeholder = {
-            Text(stringResource(id = R.string.search_by_char))
+            Text(
+                text = stringResource(id = R.string.search_by_char),
+                style = MaterialTheme.typography.bodyLarge,
+            )
         },
         trailingIcon = {
             Icon(
@@ -59,7 +63,6 @@ fun SearchWidget(
                 contentDescription = stringResource(id = R.string.search_by_char),
             )
         },
-
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(
             onSearch = {
