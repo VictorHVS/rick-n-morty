@@ -4,11 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -34,7 +35,6 @@ import com.victorhvs.rnm.R
 import com.victorhvs.rnm.data.models.Character
 import com.victorhvs.rnm.data.models.Episode
 import com.victorhvs.rnm.presentation.components.EpisodeHorizontalCard
-import com.victorhvs.rnm.presentation.components.ProgressBar
 import com.victorhvs.rnm.presentation.components.RNMImage
 import com.victorhvs.rnm.presentation.components.SectionTitle
 import com.victorhvs.rnm.presentation.theme.spacing
@@ -49,7 +49,7 @@ fun DetailScreen(
     Scaffold { paddingValues ->
         when (val state = uiState.value) {
             is DetailViewModel.UiState.Error -> state.e.printStackTrace()
-            DetailViewModel.UiState.Loading -> ProgressBar()
+            DetailViewModel.UiState.Loading -> {}
             is DetailViewModel.UiState.Success -> DetailContent(
                 modifier = Modifier.padding(paddingValues),
                 character = state.charInfo,
@@ -145,46 +145,69 @@ fun CharInfoHeader(
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.onSurface
         )
-        Row(
+        LazyRow(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         ) {
-            SuggestionChip(
-                onClick = { },
-                label = { Text(text = character.status) },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Badge,
-                        contentDescription = character.status,
-                    )
-                }
-            )
-            SuggestionChip(
-                onClick = { },
-                label = { Text(text = character.species) },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.FilterFrames,
-                        contentDescription = character.status,
-                    )
-                }
-            )
-            SuggestionChip(
-                onClick = { },
-                label = {
-                    Text(
-                        text = stringResource(
-                            id = R.string.n_episodes,
-                            character.episode.size
+            item {
+                Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            }
+            item {
+                SuggestionChip(
+                    onClick = { },
+                    label = {
+                        Text(
+                            text = character.status,
+                            maxLines = 1
                         )
-                    )
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.TheaterComedy,
-                        contentDescription = character.status,
-                    )
-                }
-            )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Badge,
+                            contentDescription = character.status,
+                        )
+                    }
+                )
+            }
+            item {
+                SuggestionChip(
+                    onClick = { },
+                    label = {
+                        Text(
+                            text = character.species,
+                            maxLines = 1
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.FilterFrames,
+                            contentDescription = character.status,
+                        )
+                    }
+                )
+            }
+            item {
+                SuggestionChip(
+                    onClick = { },
+                    label = {
+                        Text(
+                            text = stringResource(
+                                id = R.string.n_episodes,
+                                character.episode.size
+                            ),
+                            maxLines = 1
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.TheaterComedy,
+                            contentDescription = character.status,
+                        )
+                    }
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.size(MaterialTheme.spacing.small))
+            }
         }
     }
 }

@@ -1,16 +1,15 @@
 package com.victorhvs.rnm.presentation.components
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,11 +28,10 @@ fun RNMImage(
     contentDescription: String
 ) {
     GlideImage(
-        modifier = Modifier
+        modifier = modifier
             .semantics { testTagsAsResourceId = true }
             .testTag("RNMImage")
-            .fillMaxWidth()
-            .then(modifier),
+            .aspectRatio(ratio = 1f),
         imageModel = { imageUrl },
         imageOptions = ImageOptions(
             contentScale = ContentScale.FillWidth,
@@ -42,22 +40,25 @@ fun RNMImage(
             colorFilter = null,
             alpha = 1f
         ),
-        previewPlaceholder = R.drawable.ic_launcher_foreground,
+        previewPlaceholder = R.drawable.app_icon,
         loading = {
-            Box(
+            Image(
                 modifier = Modifier
-                    .testTag("RNMImageLoading")
-                    .matchParentSize()
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
+                    .fillMaxWidth()
+                    .aspectRatio(ratio = 1f),
+                contentScale = ContentScale.Crop,
+                painter = painterResource(id = R.drawable.app_icon),
+                contentDescription = null
+            )
         },
         failure = {
-            Text(
-                modifier = Modifier.testTag("RNMImageError"),
-                text = stringResource(id = R.string.image_load_error)
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(ratio = 1f),
+                contentScale = ContentScale.Crop,
+                painter = painterResource(id = R.drawable.app_icon),
+                contentDescription = null
             )
         },
         requestOptions = {

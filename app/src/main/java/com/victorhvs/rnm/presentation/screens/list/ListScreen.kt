@@ -19,7 +19,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.victorhvs.rnm.data.models.Character
 import com.victorhvs.rnm.presentation.components.CharVerticalCard
-import com.victorhvs.rnm.presentation.components.ProgressBar
 import com.victorhvs.rnm.presentation.components.SearchWidget
 import com.victorhvs.rnm.presentation.theme.spacing
 import kotlinx.coroutines.launch
@@ -35,8 +34,8 @@ fun ListScreen(
     val coroutineScope = rememberCoroutineScope()
     val gridState = rememberLazyGridState()
 
-    LaunchedEffect(Unit) {
-        viewModel.searchCharacter("")
+    LaunchedEffect(viewModel.searchQuery.value) {
+        viewModel.searchCharacter(viewModel.searchQuery.value)
     }
 
     Scaffold(
@@ -99,9 +98,7 @@ fun ListContent(
 
     characters.apply {
         when {
-            loadState.refresh is LoadState.Loading -> ProgressBar()
             loadState.refresh is LoadState.Error -> println(loadState)
-            loadState.append is LoadState.Loading -> ProgressBar()
             loadState.append is LoadState.Error -> println(loadState.append.toString())
         }
     }
