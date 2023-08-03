@@ -28,7 +28,7 @@ import com.victorhvs.rnm.presentation.theme.RicknmortyTheme
 fun SectionTitle(
     modifier: Modifier = Modifier,
     @StringRes title: Int,
-    actionButton: @Composable () -> Unit = { },
+    action: (() -> Unit)? = { },
 ) {
     Row(
         modifier = modifier
@@ -43,7 +43,11 @@ fun SectionTitle(
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface
         )
-        actionButton()
+        action?.let {
+            IconButton(onClick = { action.invoke() }) {
+                Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
+            }
+        }
     }
 }
 
@@ -54,12 +58,8 @@ fun SectionTitlePreview() {
     RicknmortyTheme {
         SectionTitle(
             title = R.string.episodes,
-            actionButton = {
-                IconButton(onClick = {
+            action = {
 
-                }) {
-                    Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
-                }
             }
         )
     }

@@ -21,7 +21,7 @@ retrofit-serialization-converter = "1.0.0"
 retrofit-interceptor = "4.11.0"
 paging-compose = "1.0.0-alpha18"
 paging-version = "3.2.0"
-composeNavigationHilt = "1.0.0"
+composeNavigationHilt = "1.1.0-alpha01"
 accompanist = "0.28.0"
 
 [libraries]
@@ -52,6 +52,7 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-serialization-converter" }
 retrofit-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "retrofit-interceptor" }
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.6.1" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

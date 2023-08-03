@@ -15,14 +15,14 @@ Study app that displays the characters and episodes of Rick and Morty using Jetp
 - [x] Retrofit Setup
 - [ ] Room Setup
 - [x] Paging3 + Remote Mediator
-- [ ] Compose Navigation
-- [ ] Deep link
+- [x] Compose Navigation
+- [x] Deep link
 - [x] Home Screen with Character List
   - [x] Datasource
   - [x] Repository
   - [x] ViewModel
   - [x] UI using UDF Pattern (https://developer.android.com/jetpack/compose/architecture#udf)
-- [ ] Character Detail Screen
+- [x] Character Detail Screen
 - [ ] CD Pipeline using Github Actions
 
 ## Built With 🛠
@@ -49,6 +49,12 @@ Figma Design Kit: https://www.figma.com/file/quqLCyNbZniCM58U78lQ5g/%5BM3%5D-RNM
    <img src="docs/char_detail.png" alt="CHAR DETAIL" /> 
    Character Detail
 </p>
+
+## Deep-Linking 📱
+To test deeplink you can use this snippet in your terminal:
+```bash
+adb shell am start -W -a android.intent.action.VIEW -d "https://victorhvs.com/rnm/1"
+```
 
 ## Pre-Commit Hooks 🎣
 1. create a file named `pre-commit` in `.git/hooks/`
