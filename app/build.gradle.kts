@@ -46,6 +46,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
 
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        )
+
         if (project.findProperty("enableComposeCompilerReports") == "true") {
             val outputDir = project.buildDir.path + "/compose-reports"
             freeCompilerArgs = freeCompilerArgs + listOf(

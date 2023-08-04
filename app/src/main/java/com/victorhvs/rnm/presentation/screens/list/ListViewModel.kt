@@ -23,16 +23,9 @@ class ListViewModel @Inject constructor(
     private val _searchQuery = mutableStateOf("")
     val searchQuery = _searchQuery
 
-//    private val _searchedCharacter = MutableStateFlow<PagingData<Character>>(PagingData.empty())
-//    val searchedCharacter get() = _searchedCharacter.asStateFlow()
-
-    private val _state = MutableStateFlow<PagingData<Character>>(PagingData.empty())
-    val state: StateFlow<PagingData<Character>> =
-        _state.asStateFlow()
-
-    init {
-        searchCharacter(_searchQuery.value)
-    }
+    private val _searchedCharacter = MutableStateFlow<PagingData<Character>>(PagingData.empty())
+    val searchedCharacter: StateFlow<PagingData<Character>> =
+        _searchedCharacter.asStateFlow()
 
     fun updateSearchQuery(query: String) {
         _searchQuery.value = query
@@ -41,7 +34,7 @@ class ListViewModel @Inject constructor(
     fun searchCharacter(query: String) {
         viewModelScope.launch {
             repository.searchCharacter(query = query).cachedIn(viewModelScope).collect { result ->
-                _state.update {
+                _searchedCharacter.update {
                     result
                 }
             }

@@ -30,11 +30,11 @@ fun ListScreen(
     viewModel: ListViewModel = hiltViewModel()
 ) {
 
-    val pagingCharacters = viewModel.state.collectAsLazyPagingItems()
+    val pagingCharacters = viewModel.searchedCharacter.collectAsLazyPagingItems()
     val coroutineScope = rememberCoroutineScope()
     val gridState = rememberLazyGridState()
 
-    LaunchedEffect(viewModel.searchQuery.value) {
+    LaunchedEffect(Unit) {
         viewModel.searchCharacter(viewModel.searchQuery.value)
     }
 
@@ -72,7 +72,7 @@ fun ListScreen(
 fun ListContent(
     modifier: Modifier = Modifier,
     characters: LazyPagingItems<Character>,
-    gridState: LazyGridState = rememberLazyGridState(),
+    gridState: LazyGridState,
     onCardClicked: (Int) -> Unit
 ) {
 
