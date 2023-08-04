@@ -1,7 +1,6 @@
 package com.victorhvs.rnm.presentation.navigation
 
 import android.content.Intent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,7 +11,6 @@ import androidx.navigation.navDeepLink
 import com.victorhvs.rnm.presentation.screens.detail.DetailScreen
 import com.victorhvs.rnm.presentation.screens.list.ListScreen
 
-@ExperimentalAnimationApi
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
@@ -36,7 +34,10 @@ fun SetupNavGraph(navController: NavHostController) {
                 type = NavType.IntType
             })
         ) {
-            DetailScreen(onBackPressed = { navController.popBackStack() })
+            DetailScreen(
+                charId = it.arguments?.getInt(Screen.DETAILS_ARGUMENT_KEY) ?: 1,
+                onBackPressed = { navController.popBackStack() }
+            )
         }
     }
 }

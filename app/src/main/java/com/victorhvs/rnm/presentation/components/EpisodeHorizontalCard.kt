@@ -7,7 +7,6 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
@@ -15,7 +14,6 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.tooling.preview.Preview
 import com.victorhvs.rnm.presentation.theme.RicknmortyTheme
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun EpisodeHorizontalCard(
     modifier: Modifier = Modifier,

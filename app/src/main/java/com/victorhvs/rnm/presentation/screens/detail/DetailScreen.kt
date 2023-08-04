@@ -43,12 +43,13 @@ import com.victorhvs.rnm.presentation.theme.spacing
 @Composable
 fun DetailScreen(
     onBackPressed: () -> Unit,
+    charId: Int,
     viewModel: DetailViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchCharacterAndEpisodes()
+        viewModel.fetchCharacterAndEpisodes(charId)
     }
 
     Scaffold { paddingValues ->
