@@ -1,20 +1,22 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kotlinx.serialization)
+//    alias(libs.plugins.ksp)
     kotlin("kapt")
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.victorhvs.rnm"
-    compileSdk = 33
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.victorhvs.rnm"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
 
@@ -103,6 +105,7 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.navigationHilt)
     implementation(libs.lifecycle.viewmodel)
+//    ksp(libs.hilt.compiler)
     kapt(libs.hilt.compiler)
 
     implementation(libs.retrofit)

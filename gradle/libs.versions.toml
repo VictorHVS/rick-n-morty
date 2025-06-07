@@ -1,28 +1,30 @@
 [versions]
-agp = "8.2.0-alpha15"
-kotlin = "1.9.0"
-core-ktx = "1.10.1"
+agp = "8.8.2"
+kotlin = "2.1.21"
+core-ktx = "1.16.0"
 junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
-lifecycle-runtime-ktx = "2.6.1"
-activity-compose = "1.7.2"
-compose-bom = "2023.06.01"
+androidx-test-ext-junit = "1.2.1"
+espresso-core = "3.6.1"
+lifecycle-runtime-ktx = "2.9.1"
+activity-compose = "1.10.1"
+compose-bom = "2025.05.00"
 detekt = "1.23.1"
 kover = "0.7.3"
 sonar = "4.3.0.3225"
 ktlint = "11.5.0"
 landscapist-glide = "2.2.5"
 robolectric = "4.10.3"
-hilt = "2.47"
-kotlinx-serialization-json = "1.5.0"
+hilt = "2.51.1"
+kotlinx-serialization-json = "1.7.3"
 retrofit = "2.9.0"
 retrofit-serialization-converter = "1.0.0"
 retrofit-interceptor = "4.11.0"
-paging-compose = "1.0.0-alpha18"
-paging-version = "3.2.0"
-composeNavigationHilt = "1.1.0-alpha01"
+paging-compose = "3.3.6"
+paging-version = "3.3.6"
+composeNavigationHilt = "1.2.0"
 accompanist = "0.28.0"
+ksp = "2.1.21-2.0.1"
+
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -63,4 +65,7 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 

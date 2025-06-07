@@ -7,7 +7,9 @@ plugins {
     alias(libs.plugins.sonar)
     alias(libs.plugins.detekt)
     alias(libs.plugins.ktlint)
+//    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.compose.compiler) apply false
 }
 
 subprojects {
