@@ -135,6 +135,7 @@ jobs:
           files: '**/build/reports/kover/reportDebug.xml'
           flags: unittests
           verbose: true
+          use_oidc: false
 
   sonar:
     name: SonarQube
