@@ -115,30 +115,35 @@ fun ListContent(
         }
     }
 
-    if (characters.itemCount == 0) {
-        Box(
-            modifier = modifier
-                .fillMaxSize(),
-            contentAlignment = Alignment.Center
+    if (characters.loadState.refresh !is LoadState.Loading && characters.itemCount == 0) {
+        ListEmptyContent()
+    }
+}
+
+@Composable
+private fun ListEmptyContent(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.ic_launcher_foreground),
-                    contentDescription = "Empty Status"
-                )
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = MaterialTheme.spacing.medium)
-                        .fillMaxWidth(),
-                    text = stringResource(R.string.empty_characters),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
+            Image(
+                painter = painterResource(R.drawable.ic_launcher_foreground),
+                contentDescription = "Empty Status"
+            )
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.medium)
+                    .fillMaxWidth(),
+                text = stringResource(R.string.empty_characters),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
         }
     }
 }

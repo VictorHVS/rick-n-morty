@@ -38,11 +38,7 @@ class ListViewModel @Inject constructor(
                 .debounce(DEBOUNCE_TIMEOUT)
                 .distinctUntilChanged()
                 .collect { query ->
-                    if (query.isNotBlank()) {
-                        searchCharacter(query)
-                    } else {
-                        _searchedCharacter.value = PagingData.empty()
-                    }
+                    searchCharacter(query)
                 }
         }
     }
