@@ -1,6 +1,5 @@
 package com.victorhvs.rnm.presentation.screens.list
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -18,6 +17,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+private const val DEBOUNCE_TIMEOUT = 400L
+
 @OptIn(FlowPreview::class)
 @HiltViewModel
 class ListViewModel @Inject constructor(
@@ -34,7 +35,7 @@ class ListViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _searchQuery
-                .debounce(400)
+                .debounce(DEBOUNCE_TIMEOUT)
                 .distinctUntilChanged()
                 .collect { query ->
                     if (query.isNotBlank()) {
