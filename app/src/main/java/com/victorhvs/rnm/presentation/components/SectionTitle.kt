@@ -41,11 +41,11 @@ fun SectionTitle(
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface
         )
-        action?.let {
-            IconButton(onClick = { action.invoke() }) {
-                Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
-            }
-        }
+//        action?.let {
+//            IconButton(onClick = { action.invoke() }) {
+//                Icon(imageVector = Icons.Outlined.ArrowForward, contentDescription = null)
+//            }
+//        }
     }
 }
 

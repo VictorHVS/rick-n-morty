@@ -128,7 +128,7 @@ jobs:
           retention-days: 1
 
       - name: Upload report to Codecov
-        uses: codecov/codecov-action@v5.4.1
+        uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
