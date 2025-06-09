@@ -5,4 +5,5 @@
     <string name="character_image">%s picture</string>
     <string name="episodes">Episodes</string>
     <string name="n_episodes">%d episodes</string>
+    <string name="empty_characters">No characters found</string>
 </resources>
