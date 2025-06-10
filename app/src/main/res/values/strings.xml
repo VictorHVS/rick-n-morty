@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">rick-n-morty</string>
+    <string name="app_name">RM Universe Explorer</string>
     <string name="search_by_char">Search by Character</string>
     <string name="image_load_error">image request failed.</string>
     <string name="character_image">%s picture</string>
