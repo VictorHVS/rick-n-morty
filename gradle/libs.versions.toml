@@ -24,6 +24,9 @@ paging-version = "3.3.6"
 composeNavigationHilt = "1.2.0"
 accompanist = "0.28.0"
 ksp = "2.1.21-2.0.1"
+mockk = "1.13.10"
+kotlinxCoroutinesTest = "1.7.3"
+androidxArchCoreTesting = "2.2.0"
 
 
 [libraries]
@@ -55,6 +58,9 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofit-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit-serialization-converter" }
 retrofit-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "retrofit-interceptor" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.6.1" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+androidx-arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "androidxArchCoreTesting" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -67,5 +73,3 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
-

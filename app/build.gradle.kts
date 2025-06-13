@@ -117,6 +117,12 @@ dependencies {
     implementation(libs.retrofit.logging.interceptor)
 
     testImplementation(libs.junit)
+    // Mockito is removed, MockK is added
+    testImplementation(libs.mockk)
+    // Ensuring essential test dependencies are present
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.arch.core.testing)
+
     testImplementation(libs.ui.test.junit4)
     testImplementation(libs.ui.test.manifest)
     testImplementation(libs.robolectric)
