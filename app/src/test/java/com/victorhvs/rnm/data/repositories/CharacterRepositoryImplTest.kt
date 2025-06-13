@@ -5,6 +5,8 @@ import com.victorhvs.rnm.data.datasources.remote.RNMService
 import com.victorhvs.rnm.data.models.Character
 import com.victorhvs.rnm.data.models.Location
 import com.victorhvs.rnm.data.models.Origin
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -12,8 +14,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -25,25 +25,30 @@ class CharacterRepositoryImplTest {
 
     @Before
     fun setUp() {
-        rnmService = mock()
+        rnmService = mockk()
         repository = CharacterRepositoryImpl(rnmService)
     }
 
     @Test
-    fun `searchCharacter returns a Flow of PagingData`() = runTest {
+    fun `GIVEN a query WHEN searchCharacter is called THEN a Flow of PagingData is returned`() = runTest {
+        // GIVEN
         val query = "Rick"
-        // We are not testing the PagingSource itself here, just that the repository returns a Pager
-        // The actual content of PagingData would come from the PagingSource interactions
+
+        // WHEN
+        // The actual PagingSource isn't tested here, just that the repo constructs and returns a Pager's flow.
         val characterFlow = repository.searchCharacter(query)
+
+        // THEN
         assertNotNull(characterFlow)
-        // We can collect once to ensure it's a valid flow, though it will be empty PagingData
-        // as the PagingSource is not mocked to return actual data in this unit test.
-        val pagingData = characterFlow.first() // Should emit PagingData.empty() by default from a new Pager
+        // Collect once to ensure it's a valid flow. It will likely be PagingData.empty()
+        // as the PagingSource itself isn't mocked to provide data in this unit test.
+        val pagingData = characterFlow.first()
         assertNotNull(pagingData)
     }
 
     @Test
-    fun `getCharacter success returns character`() = runTest {
+    fun `GIVEN a character ID and successful service call WHEN getCharacter is called THEN the character is returned`() = runTest {
+        // GIVEN
         val charId = 1
         val fakeCharacter = Character(
             id = charId,
@@ -59,52 +64,77 @@ class CharacterRepositoryImplTest {
             url = "char_url",
             created = "timestamp"
         )
-        whenever(rnmService.getCharacter(charId)).thenReturn(fakeCharacter)
+        coEvery { rnmService.getCharacter(charId) } returns fakeCharacter
 
+        // WHEN
         val result = repository.getCharacter(charId)
 
+        // THEN
         assertEquals(fakeCharacter, result)
     }
 
     @Test(expected = HttpException::class)
-    fun `getCharacter failure throws HttpException`() = runTest {
+    fun `GIVEN a character ID and service failure WHEN getCharacter is called THEN HttpException is thrown`() = runTest {
+        // GIVEN
         val charId = 1
-        val httpException = HttpException(Response.error<Any>(404, mock()))
-        whenever(rnmService.getCharacter(charId)).thenThrow(httpException)
+        val responseError = mockk<Response<Any>>(relaxed = true) // relaxed mock for Response.error
+        val httpException = HttpException(responseError)
+        // It's often simpler to directly mock the exception if its internal state isn't critical for the test
+        // val httpException = mockk<HttpException>()
+        coEvery { rnmService.getCharacter(charId) } throws httpException
 
-        repository.getCharacter(charId) // This should throw HttpException
+        // WHEN
+        repository.getCharacter(charId)
+
+        // THEN
+        // Expected HttpException is declared in @Test annotation
     }
 
     @Test
-    fun `getCharacters (plural) success returns list of characters`() = runTest {
+    fun `GIVEN character IDs and successful service call WHEN getCharacters is called THEN list of characters is returned`() = runTest {
+        // GIVEN
         val charIds = listOf(1, 2)
-        val fakeCharacter1 = Character(id = 1, name = "Rick", status = "", species = "", type = "", gender = "", origin = mock(), location = mock(), image = "", episode = listOf(), url = "", created = "")
-        val fakeCharacter2 = Character(id = 2, name = "Morty", status = "", species = "", type = "", gender = "", origin = mock(), location = mock(), image = "", episode = listOf(), url = "", created = "")
+        val fakeCharacter1 = mockk<Character>() // Relaxed mocks if details aren't crucial
+        val fakeCharacter2 = mockk<Character>()
         val fakeCharacters = listOf(fakeCharacter1, fakeCharacter2)
+        val idsString = charIds.joinToString(",")
 
-        whenever(rnmService.getCharacters(charIds.joinToString(","))).thenReturn(fakeCharacters)
+        coEvery { rnmService.getCharacters(idsString) } returns fakeCharacters
 
+        // WHEN
         val result = repository.getCharacters(charIds)
+
+        // THEN
         assertEquals(fakeCharacters, result)
     }
 
     @Test(expected = HttpException::class)
-    fun `getCharacters (plural) failure throws HttpException`() = runTest {
+    fun `GIVEN character IDs and service failure WHEN getCharacters is called THEN HttpException is thrown`() = runTest {
+        // GIVEN
         val charIds = listOf(1, 2)
-        val httpException = HttpException(Response.error<Any>(404, mock()))
-        whenever(rnmService.getCharacters(charIds.joinToString(","))).thenThrow(httpException)
+        val idsString = charIds.joinToString(",")
+        val responseError = mockk<Response<Any>>(relaxed = true)
+        val httpException = HttpException(responseError)
+        // val httpException = mockk<HttpException>()
+        coEvery { rnmService.getCharacters(idsString) } throws httpException
 
+        // WHEN
         repository.getCharacters(charIds)
+
+        // THEN
+        // Expected HttpException
     }
 
-     @Test
-    fun `getCharacters (plural) with empty list returns empty list`() = runTest {
+    @Test
+    fun `GIVEN an empty list of character IDs WHEN getCharacters is called THEN an empty list is returned`() = runTest {
+        // GIVEN
         val charIds = emptyList<Int>()
-        // No need to mock rnmService as it shouldn't be called for an empty list.
-        // However, if the implementation *does* call it with an empty string,
-        // you might need: whenever(rnmService.getCharacters("")).thenReturn(emptyList())
 
+        // WHEN
+        // No service call should be made, so no coEvery needed for rnmService.
         val result = repository.getCharacters(charIds)
+
+        // THEN
         assertEquals(emptyList<Character>(), result)
     }
 }

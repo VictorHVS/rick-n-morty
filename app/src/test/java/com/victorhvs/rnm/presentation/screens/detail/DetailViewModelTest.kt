@@ -7,6 +7,9 @@ import com.victorhvs.rnm.data.models.Location
 import com.victorhvs.rnm.data.models.Origin
 import com.victorhvs.rnm.data.repositories.CharacterRepository
 import com.victorhvs.rnm.data.repositories.EpisodesRepository
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -19,8 +22,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class DetailViewModelTest {
@@ -31,26 +32,7 @@ class DetailViewModelTest {
     private lateinit var dispatcherProvider: DispatcherProvider
     private val testDispatcher = StandardTestDispatcher()
 
-    @Before
-    fun setUp() {
-        Dispatchers.setMain(testDispatcher)
-        charRepository = mock()
-        epiRepository = mock()
-        dispatcherProvider = mock()
-
-        // Mock dispatcherProvider to return the testDispatcher for all contexts
-        whenever(dispatcherProvider.io()).thenReturn(testDispatcher)
-        whenever(dispatcherProvider.main()).thenReturn(testDispatcher)
-        whenever(dispatcherProvider.default()).thenReturn(testDispatcher)
-
-        viewModel = DetailViewModel(charRepository, epiRepository, dispatcherProvider)
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-    }
-
+    // Mocked data (can remain as is, or use relaxed mockks if complex object creation is an issue)
     private val fakeCharacter = Character(
         id = 1,
         name = "Rick Sanchez",
@@ -71,16 +53,40 @@ class DetailViewModelTest {
         Episode(id = 2, name = "Lawnmower Dog", airDate = "December 9, 2013", episode = "S01E02", characters = listOf(), url = "", created = "")
     )
 
+    @Before
+    fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+        charRepository = mockk()
+        epiRepository = mockk()
+        dispatcherProvider = mockk()
+
+        every { dispatcherProvider.io() } returns testDispatcher
+        // Note: No need to mock main() or default() if not explicitly used by viewModel with those specific dispatchers.
+        // If they are, they should also be mocked:
+        // every { dispatcherProvider.main() } returns testDispatcher
+        // every { dispatcherProvider.default() } returns testDispatcher
+
+
+        viewModel = DetailViewModel(charRepository, epiRepository, dispatcherProvider)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
     @Test
-    fun `fetchCharacterAndEpisodes success updates state to Success`() = runTest {
+    fun `GIVEN charId and successful repo calls WHEN fetchCharacterAndEpisodes is called THEN state updates to Success with correct data`() = runTest {
+        // GIVEN
         val charId = 1
-        whenever(charRepository.getCharacter(charId)).thenReturn(fakeCharacter)
-        whenever(epiRepository.getEpisodes(listOf(1, 2))).thenReturn(fakeEpisodes)
+        coEvery { charRepository.getCharacter(charId) } returns fakeCharacter
+        coEvery { epiRepository.getEpisodes(listOf(1, 2)) } returns fakeEpisodes
 
+        // WHEN
         viewModel.fetchCharacterAndEpisodes(charId)
-        // Advance the dispatcher to allow coroutines to complete
-        testDispatcher.scheduler.advanceUntilIdle()
+        testDispatcher.scheduler.advanceUntilIdle() // Allow coroutines to complete
 
+        // THEN
         val state = viewModel.state.first()
         assertTrue(state is DetailViewModel.UiState.Success)
         assertEquals(fakeCharacter, (state as DetailViewModel.UiState.Success).charInfo)
@@ -88,29 +94,35 @@ class DetailViewModelTest {
     }
 
     @Test
-    fun `fetchCharacterAndEpisodes when charRepository fails updates state to Error`() = runTest {
+    fun `GIVEN charId and charRepository failure WHEN fetchCharacterAndEpisodes is called THEN state updates to Error`() = runTest {
+        // GIVEN
         val charId = 1
         val exception = RuntimeException("Character fetch failed")
-        whenever(charRepository.getCharacter(charId)).thenThrow(exception)
+        coEvery { charRepository.getCharacter(charId) } throws exception
 
+        // WHEN
         viewModel.fetchCharacterAndEpisodes(charId)
         testDispatcher.scheduler.advanceUntilIdle()
 
+        // THEN
         val state = viewModel.state.first()
         assertTrue(state is DetailViewModel.UiState.Error)
         assertEquals(exception, (state as DetailViewModel.UiState.Error).e)
     }
 
     @Test
-    fun `fetchCharacterAndEpisodes when epiRepository fails updates state to Error`() = runTest {
+    fun `GIVEN charId, successful charRepository call, and epiRepository failure WHEN fetchCharacterAndEpisodes is called THEN state updates to Error`() = runTest {
+        // GIVEN
         val charId = 1
         val exception = RuntimeException("Episodes fetch failed")
-        whenever(charRepository.getCharacter(charId)).thenReturn(fakeCharacter)
-        whenever(epiRepository.getEpisodes(listOf(1, 2))).thenThrow(exception)
+        coEvery { charRepository.getCharacter(charId) } returns fakeCharacter
+        coEvery { epiRepository.getEpisodes(listOf(1, 2)) } throws exception
 
+        // WHEN
         viewModel.fetchCharacterAndEpisodes(charId)
         testDispatcher.scheduler.advanceUntilIdle()
 
+        // THEN
         val state = viewModel.state.first()
         assertTrue(state is DetailViewModel.UiState.Error)
         assertEquals(exception, (state as DetailViewModel.UiState.Error).e)
