@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Stale Jobs
-        uses: styfle/cancel-workflow-action@0.11.0
+        uses: styfle/cancel-workflow-action@0.13.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Validate Gradle wrapper
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Common Steps
@@ -49,7 +49,7 @@ jobs:
       - name: Assemble RNM
         run: ./gradlew assembleDebug --no-daemon --scan
       - name: Upload compose reports artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: compose-reports
@@ -66,7 +66,7 @@ jobs:
       security-events: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Common Steps
@@ -76,7 +76,7 @@ jobs:
         run: ./gradlew detekt ktlintCheck --no-daemon
 
       - name: Upload static reports artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: static-report
           path: |
@@ -84,7 +84,7 @@ jobs:
             **/build/reports/ktlint/ktlintKotlinScriptCheck/ktlintKotlinScriptCheck.txt
           retention-days: 1
       - name: Analyze detekt report
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: app/build/reports/detekt/detekt.sarif
           checkout_path: ${{ github.workspace }}
@@ -94,7 +94,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Common Steps
@@ -104,14 +104,14 @@ jobs:
         run: ./gradlew testDebugUnitTest koverXmlReportDebug --no-daemon --scan
 
       - name: Upload tests reports artifact (success)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: success()
         with:
           name: tests-reports
           path: app/build/reports/tests
           retention-days: 2
       - name: Upload tests reports artifact (failure)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: tests-reports
@@ -121,14 +121,14 @@ jobs:
           retention-days: 2
 
       - name: Upload coverage reports artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-reports
           path: '**/build/reports/kover/reportDebug.xml'
           retention-days: 1
 
       - name: Upload report to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
@@ -143,25 +143,25 @@ jobs:
     needs: [ static-analysis, unit-tests ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Common Steps
         uses: ./.github/actions/common-steps
       - name: Cache SonarCloud packages
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Download static report artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: static-report
           path: .
       - name: Download coverage artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-reports
           path: .
